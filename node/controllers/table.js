@@ -16,24 +16,24 @@ const getAllKeys = async (req, res) => {
 const saveCart = async (req, res) => {
     let cart;
     try {
-        cart = await new Cart({ products: req.body });        
-        await cart.save();        
-        res.status(201).send('סל הקניות נשמר בהצלחה!');
+        cart = await new Cart({ products: req.body });
+        await cart.save();
+        res.status(201).send('sucsses');
     } catch (error) {
-        console.error('שגיאה בשמירה:', error);
-        res.status(500).send('שגיאה בשמירה');
+        console.error('error:', error);
+        res.status(500).send('error');
     }
 };
 
 const deleteField = async (req, res) => {
     try {
-        const cart = await Cart.findOne();  
+        const cart = await Cart.findOne();
         if (!cart) {
             console.log("Cart not found");
             return res.status(404).send("Cart not found");
         }
         // חפש את המוצר בתוך המערך של המוצרים
-        console.log("PP",cart);
+        console.log("PP", cart);
         const productIndex = cart.products.findIndex(product => product.myCustomId === req.body.id);
 
         if (productIndex === -1) {
